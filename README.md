@@ -3,8 +3,8 @@
 Online webcam viewer & recoder
 
 ## Features
-- [ ] view webcam
-- [ ] fullscreen mode
+- [x] view webcam
+- [x] fullscreen mode
 - [ ] config: mirror
 - [ ] config: filter
 - [ ] interface
