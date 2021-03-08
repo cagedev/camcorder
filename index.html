@@ -21,7 +21,12 @@
             z-index: 10;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             margin: 5px 10px;
         }
 
@@ -94,6 +99,12 @@
             </div>
         </div>
 
+        <!-- <div id="status display_block">
+            <h2>Status</h2>
+            <div></div>
+        </div> -->
+
+
     </div>
 
     <div class="overlay">
@@ -129,6 +140,7 @@
 
 </body>
 <script>
+    // TODO: cleanup
     var raw_video_element = null;
     var raw_video_element_fullscreen = false;
     var raw_video_element_css = null;
@@ -138,6 +150,8 @@
     var errorElement = null;
     var media_devices_list = [];
     var media_device_selector = null;
+    var media_permissions = [];
+    // TODO: SettingsObj <-> LocalStorage
     var constraints = {}
 
     window.onload = (event) => {
@@ -162,6 +176,17 @@
                 // deviceId: "6f7a77599218206a786346071d9079edf8ab9ee98e19f4268fb9b61c670ebcdc"
             }
         };
+        media_permissions = [
+            {
+                name: 'camera',
+                state: '',
+            },
+            {
+                name: 'microphone',
+                state: '',
+            }
+        ]
+        check_permissions();
         populate_media_devices_list();
     };
 
@@ -186,8 +211,10 @@
                 console.log(media_devices_list);
                 devices.forEach(function (device) {
                     let option = document.createElement('option');
-                    option.text = device.label;
-                    option.value = device.deviceId;
+                    // option.text = device.label;
+                    option.text = device['label'];
+                    // option.value = device.deviceId;
+                    option.value = device['deviceId'];
                     media_device_selector.add(option);
                     // media_devices_list.push(
                     //     {
@@ -205,6 +232,17 @@
             });
     }
 
+    function check_permissions() {
+        media_permissions.forEach(function (permission) {
+            navigator.permissions.query(permission['name'])
+                .then(function (result) {
+                    console.log(result.state);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        });
+    };
 
     function start_webcam() {
         let idx = media_device_selector.selectedIndex;
