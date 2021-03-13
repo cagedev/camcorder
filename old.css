@@ -1,0 +1,62 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    /* line-height: 3rem; */
+    /* padding-left: 10px; */
+    margin: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    /* height: 80px; */
+    background: #28008a;
+    color: #fff;
+    z-index: 10;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 5px 10px;
+}
+
+video {
+    height: 180px;
+    width: 320px;
+    border: 1pt solid;
+    transform: rotate(180deg);
+}
+
+.content {
+    position: relative;
+    top: 100px;
+    width: 100%;
+}
+
+.display_block {
+    display: block;
+    width: 100%;
+}
+
+/* .float {
+    float: left;
+} */
+
+.overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.video_filter {
+    /* transform: scaleX(-1); */
+}

@@ -2,89 +2,46 @@
 
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/tailwind.css" rel="stylesheet">
+    <!-- <link href="/old.css" rel="stylesheet"> -->
 
-        header {
-            /* line-height: 3rem; */
-            /* padding-left: 10px; */
-            margin: 0;
-            position: fixed;
-            left: 0;
-            top: 0;
-            right: 0;
-            /* height: 80px; */
-            background: #28008a;
-            color: #fff;
-            z-index: 10;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin: 5px 10px;
-        }
-
-        video {
-            height: 180px;
-            width: 320px;
-            border: 1pt solid;
-            transform: rotate(180deg);
-        }
-
-        .content {
-            position: relative;
-            top: 100px;
-            width: 100%;
-        }
-
-        .display_block {
-            display: block;
-            width: 100%;
-        }
-
-        /* .float {
-            float: left;
-        } */
-
-        .overlay {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
-            width: 100%;
-            padding-left: 20px;
-        }
-
-        .video_filter {
-            /* transform: scaleX(-1); */
-        }
-    </style>
 </head>
 
 <body>
-    <header>
+    <nav class="bg-indigo-600">
         <h1>Camcorder <span class="material-icons">camera</span></h1>
-    </header>
+    </nav>
+
+
 
     <div class="content">
+
+        <ul class="grid grid-cols-2 gap-4">
+            <li>
+                <div class="shadow-md bg-white rounded-lg h-18">
+                    <h2>Raw video</h2>
+                    <video id="raw_video"></video>
+                </div>
+            </li>
+            <li>
+                <div class="shadow-md bg-white rounded-lg h-18">
+                    <h2>Filtered video</h2>
+                    <video id="filtered_video"></video>
+                </div>
+            </li>
+        </ul>
+
+
 
         <div class="video display_block">
             <h2>Video</h2>
             <div class="float">
-                Raw video<br>
-                <!-- <video id="raw_video" class="video_filter"></video> -->
-                <video id="raw_video"></video>
+
             </div>
             <div class="float">
-                Filtered video<br>
-                <video id="filtered_video"></video>
+
             </div>
         </div>
 
