@@ -27,7 +27,7 @@
     h4,
     h5,
     h6 {
-      margin: 5px 5px;
+      margin: 5px 10px;
     }
 
     .video_output {
@@ -66,9 +66,9 @@
       padding-left: 20px;
     }
 
-    .video_filter {
-      /* transform: scaleX(-1); */
-    }
+    /* .video_filter {
+      transform: scaleX(-1);
+    } */
   </style>
 </head>
 
@@ -82,12 +82,11 @@
     <div class="video display_block">
       <h2>Video</h2>
       <div class="">
-        Raw video<br>
-        <!-- <video id="raw_video" class="video_filter"></video> -->
+        <h3>Raw video</h3>
         <video id="raw_video" class="video_output"></video>
       </div>
       <div>
-        Filtered video<br />
+        <h3>Filtered video</h3>
         <canvas id="filtered_video" class="video_output video_filter"></canvas>
       </div>
     </div>
@@ -123,7 +122,6 @@
           class="material-icons">fullscreen_exit</span></button>
 
       <br />
-
 
       <!-- <button id="get_media_devices" onclick="get_media_devices()">get_media_devices()</button> -->
       <!-- <button id="populate_media_devices_list"
@@ -163,10 +161,13 @@
   var constraints = {}
 
   window.onload = (event) => {
+    // Init DOM
     raw_video_element = document.querySelector('#raw_video');
     filtered_video_element = document.querySelector('#filtered_video');
     errorElement = document.querySelector('#console_output');
     media_device_selector = document.querySelector('#media_device_selector');
+
+    // Init Settings
     constraints = {
       audio: false,
       video: {
@@ -181,7 +182,6 @@
           ideal: 720,
           max: 1080
         },
-        // deviceId: "6f7a77599218206a786346071d9079edf8ab9ee98e19f4268fb9b61c670ebcdc"
       }
     };
     media_permissions = [
@@ -216,10 +216,9 @@
     navigator.mediaDevices.enumerateDevices()
       .then(function (devices) {
         media_devices_list = devices;
-        // console.log(media_devices_list);
         devices.forEach(function (device) {
-          // TODO: => populate_video_devices_list
-          // Filter on type
+          // TODO: => split media in audio/video
+          // populate_video_devices_list(), filter on type
           let option = document.createElement('option');
           option.text = device['label'];
           option.value = device['deviceId'];
@@ -266,6 +265,7 @@
 
       })
       .catch(function (error) {
+        // TODO: Clean up error handling
         // getUserMedia returns a Promise
         // resolve - returns a MediaStream Object
         // reject returns one of the following errors
@@ -292,26 +292,25 @@
     let rve = raw_video_element;
     fve.width = rve.videoWidth;
     fve.height = rve.videoHeight;
-    // let imgCap = new ImageCapture(rve.srcObject.getVideoTracks()[0]);
+
+    // Get canvas rendering context
     let ctx = fve.getContext('2d');
+    // Render video(frame) to context
     ctx.drawImage(rve, 0, 0, fve.width, fve.height);
+    // Grab frame data (DOMException if video is not yet loaded)
     let frame = ctx.getImageData(0, 0, fve.width, fve.height);
+    // Unclear why this works well. ImageGrab from the video source
+    // results in a lot of stuttering
+
+    // Apply image filter
+    // Example pixel filter => invert red channel
+    // TODO: Filter functions
     for (let i = 0; i < frame.data.length; i+=4) {
       frame.data[i+0] = 255 - frame.data[i+0];
-      // frame.data[i+1];
-      // frame.data[i+2];
-      // frame.data[i+3];
-    // do image filtering
     }
     ctx.putImageData(frame, 0, 0);
-
-    // imgCap.grabFrame()
-      // .then(blob => createImageBitmap(blob))
-      // .then(imageBitmap => {
-      //   ctx.drawImage(imageBitmap, 0, 0);
-      // })
-      // .catch(error => console.log(error));
-    window.setTimeout(filter_video_to_canvas, 1000/30); // 30 fps
+    // callback self @ 30 fps
+    window.setTimeout(filter_video_to_canvas, 1000/30);
   }
 
   function stop_webcam() {
