@@ -1,345 +1,365 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
 
-        header {
-            /* line-height: 3rem; */
-            /* padding-left: 10px; */
-            margin: 0;
-            position: fixed;
-            left: 0;
-            top: 0;
-            right: 0;
-            /* height: 80px; */
-            background: #28008a;
-            color: #fff;
-            z-index: 10;
-        }
+    header {
+      /* line-height: 3rem; */
+      /* padding-left: 10px; */
+      margin: 0;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      /* height: 80px; */
+      background: #28008a;
+      color: #fff;
+      z-index: 10;
+    }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin: 5px 10px;
-        }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 5px 10px;
+    }
 
-        video {
-            height: 180px;
-            width: 320px;
-            border: 1pt solid;
-            transform: rotate(180deg);
-        }
+    .video_output {
+      height: 180px;
+      width: 320px;
+      /* border: 1pt solid; */
+      /* transform: rotate(180deg); */
+    }
 
-        .content {
-            position: relative;
-            top: 100px;
-            width: 100%;
-        }
+    .content {
+      position: relative;
+      top: 100px;
+      width: 100%;
+    }
 
-        .display_block {
-            display: block;
-            width: 100%;
-        }
+    .display_block {
+      display: block;
+      width: 100%;
+    }
 
-        /* .float {
+    .hidden {
+      display: none;
+    }
+
+    /* .float {
             float: left;
         } */
 
-        .overlay {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
-            width: 100%;
-            padding-left: 20px;
-        }
+    .overlay {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: #f1f1f1;
+      width: 100%;
+      padding-left: 20px;
+    }
 
-        .video_filter {
-            /* transform: scaleX(-1); */
-        }
-    </style>
+    /* .video_filter {
+      transform: scaleX(-1);
+    } */
+  </style>
 </head>
 
 <body>
-    <header>
-        <h1>Camcorder <span class="material-icons">camera</span></h1>
-    </header>
+  <header>
+    <h1>Camcorder <span class="material-icons">camera</span></h1>
+  </header>
 
-    <div class="content">
+  <div class="content">
 
-        <div class="video display_block">
-            <h2>Video</h2>
-            <div class="float">
-                Raw video<br>
-                <!-- <video id="raw_video" class="video_filter"></video> -->
-                <video id="raw_video"></video>
-            </div>
-            <div class="float">
-                Filtered video<br>
-                <video id="filtered_video"></video>
-            </div>
-        </div>
+    <div class="video display_block">
+      <h2>Video</h2>
+      <div class="">
+        <h3>Raw video</h3>
+        <video id="raw_video" class="video_output"></video>
+      </div>
+      <div>
+        <h3>Filtered video</h3>
+        <canvas id="filtered_video" class="video_output video_filter"></canvas>
+      </div>
+    </div>
 
-        <div id="console display_block">
-            <h2>Console</h2>
-            <div class="float">
-                Input<br>
-                <textarea id="console_input" rows="8" cols="30"></textarea>
-            </div>
-            <div class="float">
-                Output<br>
-                <textarea id="console_output" rows="8" cols="30"></textarea>
-            </div>
-        </div>
+    <!-- <div id="console display_block">
+      <h2>Console</h2>
+      <div class="float">
+        Input<br>
+        <textarea id="console_input" rows="8" cols="30"></textarea>
+      </div>
+      <div class="float">
+        Output<br>
+        <textarea id="console_output" rows="8" cols="30"></textarea>
+      </div>
+    </div> -->
 
-        <!-- <div id="status display_block">
+    <!-- <div id="status display_block">
             <h2>Status</h2>
             <div></div>
         </div> -->
 
 
-    </div>
+  </div>
 
-    <div class="overlay">
-        <div id="interface">
-            <h2>Controls</h2>
-            <button id="wb_ico" onclick="start_webcam()"><span class="material-icons">videocam</span></button>
-            <button id="wb_ico2" onclick="stop_webcam()"><span class="material-icons">videocam_off</span></button>
-            <button id="fs_ico" onclick="raw_video_fullscreen_toggle()"><span
-                    class="material-icons">fullscreen</span></button>
-            <button id="fs_ico2" onclick="raw_video_fullscreen_toggle()"><span
-                    class="material-icons">fullscreen_exit</span></button>
+  <div class="overlay">
+    <div id="interface">
+      <h2>Controls</h2>
+      <button id="wb_ico" onclick="start_webcam()"><span class="material-icons">videocam</span></button>
+      <button id="wb_ico2" onclick="stop_webcam()"><span class="material-icons">videocam_off</span></button>
+      <button id="fs_ico" onclick="raw_video_fullscreen_toggle()"><span
+          class="material-icons">fullscreen</span></button>
+      <button id="fs_ico2" onclick="raw_video_fullscreen_toggle()"><span
+          class="material-icons">fullscreen_exit</span></button>
 
+      <br />
 
-            <!-- <button id="get_media_devices" onclick="get_media_devices()">get_media_devices()</button> -->
-            <!-- <button id="populate_media_devices_list"
+      <!-- <button id="get_media_devices" onclick="get_media_devices()">get_media_devices()</button> -->
+      <!-- <button id="populate_media_devices_list"
                 onclick="populate_media_devices_list()">populate_media_devices_list()</button> -->
 
-            <!-- <button id="start_webcam" onclick="start_webcam()">start_webcam()</button> -->
-            <!-- <button id="stop_webcam" onclick="stop_webcam()">stop_webcam()</button> -->
-            <!-- <button id="raw_video_fullscreen_toggle"
+      <!-- <button id="start_webcam" onclick="start_webcam()">start_webcam()</button> -->
+      <!-- <button id="stop_webcam" onclick="stop_webcam()">stop_webcam()</button> -->
+      <!-- <button id="raw_video_fullscreen_toggle"
                 onclick="raw_video_fullscreen_toggle()">raw_video_fullscreen_toggle()</button> -->
-            <button id="filtered_video_fullscreen_toggle"
-                onclick="filtered_video_fullscreen_toggle()">filtered_video_fullscreen_toggle()</button>
+      <button id="filtered_video_fullscreen_toggle"
+        onclick="filtered_video_fullscreen_toggle()">filtered_video_fullscreen_toggle()</button>
+      <button id="filter_video_to_canvas" onclick="filter_video_to_canvas()">filter_video_to_canvas()</button>
 
-            <h2>Settings</h2>
-            <label for="media_device_selector">Camera:</label>
-            <select id="media_device_selector"></select>
+      <h2>Settings</h2>
+      <label for="media_device_selector">Camera:</label>
+      <select id="media_device_selector"></select>
 
-            <label for="audio_device_selector">Mic:</label>
-            <select id="audio_device_selector"></select>
-        </div>
+      <label for="audio_device_selector">Mic:</label>
+      <select id="audio_device_selector"></select>
     </div>
+  </div>
 
 </body>
 <script>
-    // TODO: cleanup
-    var raw_video_element = null;
-    var raw_video_element_fullscreen = false;
-    var raw_video_element_css = null;
-    var filtered_video_element = null;
-    var filtered_video_element_fullscreen = false;
-    var filtered_video_element_css = null;
-    var errorElement = null;
-    var media_devices_list = [];
-    var media_device_selector = null;
-    var media_permissions = [];
-    // TODO: SettingsObj <-> LocalStorage
-    var constraints = {}
+  // TODO: cleanup
+  var raw_video_element = null;
+  var raw_video_element_fullscreen = false;
+  var raw_video_element_css = null;
+  var filtered_video_element = null;
+  var filtered_video_element_fullscreen = false;
+  var filtered_video_element_css = null;
+  var errorElement = null;
+  var media_devices_list = [];
+  var media_device_selector = null;
+  var media_permissions = [];
+  // TODO: SettingsObj <-> LocalStorage
+  var constraints = {}
 
-    window.onload = (event) => {
-        raw_video_element = document.querySelector('#raw_video');
-        filtered_video_element = document.querySelector('#filtered_video');
-        errorElement = document.querySelector('#console_output');
-        media_device_selector = document.querySelector('#media_device_selector');
-        constraints = {
-            audio: false,
-            video: {
-                facingMode: "user",
-                width: {
-                    min: 640,
-                    ideal: 1280,
-                    max: 1920
-                },
-                height: {
-                    min: 480,
-                    ideal: 720,
-                    max: 1080
-                },
-                // deviceId: "6f7a77599218206a786346071d9079edf8ab9ee98e19f4268fb9b61c670ebcdc"
-            }
+  window.onload = (event) => {
+    // Init DOM
+    raw_video_element = document.querySelector('#raw_video');
+    filtered_video_element = document.querySelector('#filtered_video');
+    errorElement = document.querySelector('#console_output');
+    media_device_selector = document.querySelector('#media_device_selector');
+
+    // Init Settings
+    constraints = {
+      audio: false,
+      video: {
+        facingMode: "user",
+        width: {
+          min: 640,
+          ideal: 1280,
+          max: 1920
+        },
+        height: {
+          min: 480,
+          ideal: 720,
+          max: 1080
+        },
+      }
+    };
+    media_permissions = [
+      {
+        name: 'camera',
+        state: '',
+      },
+      {
+        name: 'microphone',
+        state: '',
+      }
+    ]
+    check_permissions();
+    populate_media_devices_list();
+  };
+
+  function get_media_devices() {
+    navigator.mediaDevices.enumerateDevices()
+      .then(function (devices) {
+        devices.forEach(function (device) {
+          console.log(device.kind + ": " + device.label +
+            " id = " + device.deviceId);
+        });
+      })
+      .catch(function (err) {
+        console.log(err.name + ": " + err.message);
+      });
+  }
+
+
+  function populate_media_devices_list() {
+    navigator.mediaDevices.enumerateDevices()
+      .then(function (devices) {
+        media_devices_list = devices;
+        devices.forEach(function (device) {
+          // TODO: => split media in audio/video
+          // populate_video_devices_list(), filter on type
+          let option = document.createElement('option');
+          option.text = device['label'];
+          option.value = device['deviceId'];
+          media_device_selector.add(option);
+        });
+      })
+      .catch(function (err) {
+        console.log(err.name + ": " + err.message);
+      });
+  }
+
+  function check_permissions() {
+    media_permissions.forEach(function (permission) {
+      navigator.permissions.query(permission['name'])
+        .then(function (result) {
+          console.log(result.state);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
+  };
+
+  function start_webcam() {
+    let idx = media_device_selector.selectedIndex;
+    if (idx >= 0) {
+      console.log(media_device_selector.options[idx].value);
+      constraints.video.deviceId = media_device_selector.options[idx].value;
+    }
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(function (stream) {
+        var videoTracks = stream.getVideoTracks();
+        console.log('Got stream with constraints:', constraints);
+        console.log('Using video device: ' + videoTracks[0].label);
+        stream.onremovetrack = function () {
+          console.log('Stream ended');
         };
-        media_permissions = [
-            {
-                name: 'camera',
-                state: '',
-            },
-            {
-                name: 'microphone',
-                state: '',
-            }
-        ]
-        check_permissions();
-        populate_media_devices_list();
-    };
+        window.stream = stream; // make variable available to browser console
 
-    function get_media_devices() {
-        navigator.mediaDevices.enumerateDevices()
-            .then(function (devices) {
-                devices.forEach(function (device) {
-                    console.log(device.kind + ": " + device.label +
-                        " id = " + device.deviceId);
-                });
-            })
-            .catch(function (err) {
-                console.log(err.name + ": " + err.message);
-            });
-    }
+        raw_video_element.srcObject = stream;
+        raw_video_element.onloadedmetadata = function (event) {
+          raw_video_element.play();
+        };
 
-
-    function populate_media_devices_list() {
-        navigator.mediaDevices.enumerateDevices()
-            .then(function (devices) {
-                media_devices_list = devices;
-                console.log(media_devices_list);
-                devices.forEach(function (device) {
-                    let option = document.createElement('option');
-                    // option.text = device.label;
-                    option.text = device['label'];
-                    // option.value = device.deviceId;
-                    option.value = device['deviceId'];
-                    media_device_selector.add(option);
-                    // media_devices_list.push(
-                    //     {
-                    //         kind: device.kind,
-                    //         label: device.label,
-                    //         id: device.deviceId,
-                    //     }
-                    // );
-                    // console.log(device.kind + ": " + device.label +
-                    //     " id = " + device.deviceId);
-                });
-            })
-            .catch(function (err) {
-                console.log(err.name + ": " + err.message);
-            });
-    }
-
-    function check_permissions() {
-        media_permissions.forEach(function (permission) {
-            navigator.permissions.query(permission['name'])
-                .then(function (result) {
-                    console.log(result.state);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        });
-    };
-
-    function start_webcam() {
-        let idx = media_device_selector.selectedIndex;
-        if (idx >= 0) {
-            console.log(media_device_selector.options[idx].value);
-            constraints.video.deviceId = media_device_selector.options[idx].value;
+      })
+      .catch(function (error) {
+        // TODO: Clean up error handling
+        // getUserMedia returns a Promise
+        // resolve - returns a MediaStream Object
+        // reject returns one of the following errors
+        // AbortError - generic unknown cause
+        // NotAllowedError (SecurityError) - user rejected permissions
+        // NotFoundError - missing media track
+        // NotReadableError - user permissions given but hardware/OS error
+        // OverconstrainedError - constraint video settings preventing
+        // TypeError - audio: false, video: false
+        if (error.name === 'ConstraintNotSatisfiedError') {
+          errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
+            constraints.video.height.exact + ' px is not supported by your device.');
+        } else if (error.name === 'PermissionDeniedError') {
+          errorMsg('Permissions have not been granted to use your camera and ' +
+            'microphone, you need to allow the page access to your devices in ' +
+            'order for the demo to work.');
         }
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(function (stream) {
-                var videoTracks = stream.getVideoTracks();
-                console.log('Got stream with constraints:', constraints);
-                console.log('Using video device: ' + videoTracks[0].label);
-                stream.onremovetrack = function () {
-                    console.log('Stream ended');
-                };
-                window.stream = stream; // make variable available to browser console
+        errorMsg('getUserMedia error: ' + error.name, error);
+      });
+  }
 
-                raw_video_element.srcObject = stream;
-                raw_video_element.onloadedmetadata = function (event) {
-                    raw_video_element.play();
-                };
+  function filter_video_to_canvas() {
+    let fve = filtered_video_element
+    let rve = raw_video_element;
+    fve.width = rve.videoWidth;
+    fve.height = rve.videoHeight;
 
-            })
-            .catch(function (error) {
-                // getUserMedia returns a Promise
-                // resolve - returns a MediaStream Object
-                // reject returns one of the following errors
-                // AbortError - generic unknown cause
-                // NotAllowedError (SecurityError) - user rejected permissions
-                // NotFoundError - missing media track
-                // NotReadableError - user permissions given but hardware/OS error
-                // OverconstrainedError - constraint video settings preventing
-                // TypeError - audio: false, video: false
-                if (error.name === 'ConstraintNotSatisfiedError') {
-                    errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
-                        constraints.video.height.exact + ' px is not supported by your device.');
-                } else if (error.name === 'PermissionDeniedError') {
-                    errorMsg('Permissions have not been granted to use your camera and ' +
-                        'microphone, you need to allow the page access to your devices in ' +
-                        'order for the demo to work.');
-                }
-                errorMsg('getUserMedia error: ' + error.name, error);
-            });
+    // Get canvas rendering context
+    let ctx = fve.getContext('2d');
+    // Render video(frame) to context
+    ctx.drawImage(rve, 0, 0, fve.width, fve.height);
+    // Grab frame data (DOMException if video is not yet loaded)
+    let frame = ctx.getImageData(0, 0, fve.width, fve.height);
+    // Unclear why this works well. ImageGrab from the video source
+    // results in a lot of stuttering
+
+    // Apply image filter
+    // Example pixel filter => invert red channel
+    // TODO: Filter functions
+    for (let i = 0; i < frame.data.length; i+=4) {
+      frame.data[i+0] = 255 - frame.data[i+0];
     }
+    ctx.putImageData(frame, 0, 0);
+    // callback self @ 30 fps
+    window.setTimeout(filter_video_to_canvas, 1000/30);
+  }
 
-    function start_filtered_video() {
+  function stop_webcam() {
+    stream.getTracks().forEach(function (track) {
+      track.stop();
+    });
+  }
 
+  // utility
+  function errorMsg(msg, error) {
+    errorElement.innerHTML += '<p>' + msg + '</p>';
+    if (typeof error !== 'undefined') {
+      console.error(error);
     }
+  }
 
-    function stop_webcam() {
-        stream.getTracks().forEach(function (track) {
-            track.stop();
-        });
+  // interface options
+  function raw_video_fullscreen_toggle() {
+    if (!raw_video_element_fullscreen) {
+      raw_video_element_css = raw_video_element.style;
+      raw_video_element.style.objectFit = "cover";
+      raw_video_element.style.position = "fixed";
+      raw_video_element.style.minHeight = "100%";
+      raw_video_element.style.minWidth = "100%";
+      raw_video_element.style.left = 0;
+      raw_video_element.style.top = 0;
+      raw_video_element.style.transform = "rotate(180deg)";
+      raw_video_element_fullscreen = true
+    } else {
+      raw_video_element.style = raw_video_element_css;
+      raw_video_element_fullscreen = false
     }
+  }
 
-    // utility
-    function errorMsg(msg, error) {
-        errorElement.innerHTML += '<p>' + msg + '</p>';
-        if (typeof error !== 'undefined') {
-            console.error(error);
-        }
+  function filtered_video_fullscreen_toggle() {
+    if (!filtered_video_element_fullscreen) {
+      filtered_video_element_css = filtered_video_element.style;
+      filtered_video_element.style.objectFit = "cover";
+      filtered_video_element.style.position = "fixed";
+      filtered_video_element.style.minHeight = "100%";
+      filtered_video_element.style.minWidth = "100%";
+      filtered_video_element.style.left = 0;
+      filtered_video_element.style.top = 0;
+      filtered_video_element_fullscreen = true
+    } else {
+      filtered_video_element.style = filtered_video_element_css;
+      filtered_video_element_fullscreen = false
     }
-
-    // interface options
-    function raw_video_fullscreen_toggle() {
-        if (!raw_video_element_fullscreen) {
-            raw_video_element_css = raw_video_element.style;
-            raw_video_element.style.objectFit = "cover";
-            raw_video_element.style.position = "fixed";
-            raw_video_element.style.minHeight = "100%";
-            raw_video_element.style.minWidth = "100%";
-            raw_video_element.style.left = 0;
-            raw_video_element.style.top = 0;
-            raw_video_element.style.transform = "rotate(180deg)";
-            raw_video_element_fullscreen = true
-        } else {
-            raw_video_element.style = raw_video_element_css;
-            raw_video_element_fullscreen = false
-        }
-    }
-
-    function filtered_video_fullscreen_toggle() {
-        if (!filtered_video_element_fullscreen) {
-            filtered_video_element_css = filtered_video_element.style;
-            filtered_video_element.style.objectFit = "cover";
-            filtered_video_element.style.position = "fixed";
-            filtered_video_element.style.minHeight = "100%";
-            filtered_video_element.style.minWidth = "100%";
-            filtered_video_element.style.left = 0;
-            filtered_video_element.style.top = 0;
-            filtered_video_element_fullscreen = true
-        } else {
-            filtered_video_element.style = filtered_video_element_css;
-            filtered_video_element_fullscreen = false
-        }
-    }
+  }
 
 </script>
 
